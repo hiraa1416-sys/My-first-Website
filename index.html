@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hira Restaurant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: white;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      width: 100%;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid gold;
+    }
+
+    .logo {
+      color: gold;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .logo span {
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: gold;
+    }
+
+    .btn-primary {
+      padding: 12px 25px;
+      background: gold;
+      color: black;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: 0.3s;
+      border: 2px solid gold;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: gold;
+    }
+
+    /* HIDE ALL SECTIONS BY DEFAULT */
+    .page-section {
+      display: none;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    /* SHOW ACTIVE SECTION */
+    .page-section:target {
+      display: block;
+    }
+
+    /* SHOW HOME BY DEFAULT */
+    #home {
+      display: block;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                  url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600') center/cover fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-top: -80px;
+    }
+    .hero-content h1 {
+      font-size: 70px;
+      color: gold;
+      margin-bottom: 20px;
+    }
+    .hero-content p {
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* PAGE HEADER FOR OTHER PAGES */
+    .page-header {
+      height: 50vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600') center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 60px;
+      color: gold;
+      text-shadow: 2px 2px 10px black;
+    }
+
+    .section-padding {
+      padding: 80px 50px;
+    }
+
+    .section-title {
+      text-align: center;
+      color: gold;
+      font-size: 40px;
+      margin-bottom: 50px;
+    }
+
+    .section-title span {
+      color: white;
+    }
+
+    /* FEATURES */
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .feature-box {
+      width: 300px;
+      text-align: center;
+      padding: 30px;
+      background: #111;
+      border-radius: 15px;
+      border: 1px solid #333;
+      transition: 0.3s;
+    }
+    .feature-box:hover {
+      border-color: gold;
+      transform: translateY(-10px);
+    }
+    .feature-icon {
+      font-size: 50px;
+      color: gold;
+      margin-bottom: 15px;
+    }
+
+    /* MENU GRID */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .menu-card {
+      background: #111;
+      border: 2px solid #333;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .menu-card:hover {
+      border-color: gold;
+      transform: scale(1.03);
+    }
+    .menu-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .menu-info {
+      padding: 20px;
+    }
+    .menu-info h3 {
+      color: gold;
+      margin-bottom: 10px;
+    }
+    .menu-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+    .price {
+      color: gold;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* GALLERY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      height: 250px;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid #333;
+      transition: 0.3s;
+    }
+    .gallery-item:hover {
+      border-color: gold;
+      transform: scale(1.05);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ABOUT */
+    .about-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .about-img {
+      width: 450px;
+      border-radius: 20px;
+      border: 3px solid gold;
+    }
+    .about-text {
+      width: 500px;
+    }
+    .about-text p {
+      line-height: 30px;
+      margin-bottom: 20px;
+    }
+
+    /* CONTACT */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #111;
+      padding: 40px;
+      border-radius: 20px;
+      border: 2px solid gold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #333;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+    }
+    input::placeholder, textarea::placeholder {
+      color: #aaa;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: gold;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: white;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 2px solid gold;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .navbar{
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+      .hero-content h1 {
+        font-size: 40px;
+      }
+      .page-header h1 {
+        font-size: 35px;
+      }
+      .section-padding {
+        padding: 60px 20px;
+      }
+      .about-img, .about-text {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">Hira<span>Restaurant</span></div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn-primary">Book Table</a>
+  </nav>
+
+  <!-- HOME SECTION -->
+  <section id="home" class="page-section">
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Taste The Luxury</h1>
+        <p>Experience finest dining with Black & Gold ambiance</p>
+        <div class="hero-buttons">
+          <a href="#menu" class="btn-primary">View Menu</a>
+          <a href="#contact" class="btn-primary">Reserve Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-padding">
+      <h2 class="section-title">Why <span>Choose Us</span></h2>
+      <div class="features">
+        <div class="feature-box">
+          <div class="feature-icon">👨‍🍳</div>
+          <h3>Expert Chefs</h3>
+          <p>World-class chefs with 15+ years experience</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🥘</div>
+          <h3>Fresh Ingredients</h3>
+          <p>100% fresh & organic ingredients daily</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🏆</div>
+          <h3>Award Winning</h3>
+          <p>Best Restaurant Award 2024 & 2025</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU SECTION -->
+  <section id="menu" class="page-section">
+    <div class="page-header">
+      <h1>Our Special Menu</h1>
+    </div>
+    <div class="section-padding">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200">
+          <div class="menu-info">
+            <h3>Cheese Pizza</h3>
+            <p>Delicious cheese pizza with fresh toppings and special sauce.</p>
+            <div class="menu-footer">
+              <span class="price">Rs. 1500</span>
+              <a href="#contact" class="btn-primary">Order Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200">
+          <div class="menu-info">
+            <h3>Zinger Burger</h3>
+            <p>Crispy chicken burger served with fries and cold drink.</p>
+            <div class="menu-footer">
+              <span class="price">Rs. 1200</span>
+              <a href="#contact" class="btn-primary">Order Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200">
+          <div class="menu-info">
+            <h3>Italian Pasta</h3>
+            <p>Creamy white sauce pasta with premium ingredients.</p>
+            <div class="menu-footer">
+              <span class="price">Rs. 1800</span>
+              <a href="#contact" class="btn-primary">Order Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1200">
+          <div class="menu-info">
+            <h3>BBQ Platter</h3>
+            <p>Mix BBQ with seekh kabab, tikka, and malai boti.</p>
+            <div class="menu-footer">
+              <span class="price">Rs. 2500</span>
+              <a href="#contact" class="btn-primary">Order Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200">
+          <div class="menu-info">
+            <h3>Grilled Steak</h3>
+            <p>Juicy beef steak with mashed potatoes & veggies.</p>
+            <div class="menu-footer">
+              <span class="price">Rs. 3200</span>
+              <a href="#contact" class="btn-primary">Order Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200">
+          <div class="menu-info">
+            <h3>Chocolate Lava</h3>
+            <p>Hot chocolate cake with vanilla ice cream.</p>
+            <div class="menu-footer">
+              <span class="price">Rs. 800</span>
+              <a href="#contact" class="btn-primary">Order Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section id="gallery" class="page-section">
+    <div class="page-header">
+      <h1>Our Gallery</h1>
+    </div>
+    <div class="section-padding">
+      <h2 class="section-title">Restaurant <span>Ambiance</span></h2>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=600">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=600">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=600">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?q=80&w=600">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?q=80&w=600">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1592861956120-e524fc739696?q=80&w=600">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="page-section">
+    <div class="page-header">
+      <h1>About Us</h1>
+    </div>
+    <div class="section-padding">
+      <div class="about-content">
+        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1200" class="about-img">
+        <div class="about-text">
+          <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">Our <span>Story</span></h2>
+          <p>
+            Hira Restaurant was founded in 2020 with a vision to bring luxury dining experience to Khairpur. 
+            We focus on quality, taste and modern presentation.
+          </p>
+          <p>
+            Our chefs prepare every meal with passion and perfection using 100% fresh ingredients. 
+            From traditional Pakistani cuisine to continental dishes, we serve it all with a golden touch.
+          </p>
+          <a href="#menu" class="btn-primary">Explore Our Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="page-section">
+    <div class="page-header">
+      <h1>Contact Us</h1>
+    </div>
+    <div class="section-padding">
+      <h2 class="section-title">Book Your <span>Table</span></h2>
+      <form class="contact-form">
+        <input type="text" placeholder="Enter Your Name" required>
+        <input type="email" placeholder="Enter Your Email" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="date" required>
+        <textarea rows="5" placeholder="Special Request / Message"></textarea>
+        <button type="submit">Book Table Now</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>©️ 2026 Hira Restaurant | Designed By Hira Ali | 📍 Khairpur, Pakistan | 📞 +92 300 1234567</p>
+  </footer>
+
+</body>
+</html>
